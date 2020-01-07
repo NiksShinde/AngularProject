@@ -1,0 +1,148 @@
+<div class="container-fluid">
+  <div class="card">
+
+    <div class="card-body m-0">
+      <div class="card-block">
+        <form #form="ngForm" id='form' (ngSubmit)="submit()" [formGroup]="userValidation.getForm()" class="form"
+              novalidate>
+          <div class="card-title" style="text-align:center"><h4>User Information</h4></div>
+          <div class="row">
+
+            <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 form-group">
+              <label for="fname">First Name</label>
+              <input type="text" class="form-control" placeholder="Enter First Name" id="fname"
+                     [(ngModel)]="obj.fname" required formControlName="First Name">
+              <div *ngIf="userValidation.hasError('First Name')"
+                   class=" mt-1 fieldValidate">
+                {{userValidation.getError('First Name')}}
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 form-group">
+              <label for="lname">Last Name</label>
+              <input type="lname" class="form-control" placeholder="Enter Last Name" id="lname"
+                     [(ngModel)]="obj.lname" required formControlName="Last Name">
+              <div *ngIf="userValidation.hasError('Last Name')"
+                   class=" mt-1 fieldValidate">
+                {{userValidation.getError('Last Name')}}
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 form-group">
+              <div class="form-group">
+                <label for="city">City</label>
+                <select class="form-control" id="city" placeholder="Enter City"
+                        [(ngModel)]="obj.city" required formControlName="City">
+                  <option value="" selected>Select</option>
+                  <option *ngFor="let data of cityList" value="{{data}}">{{data}}</option>
+                </select>
+                <div *ngIf="userValidation.hasError('City')"
+                     class=" mt-1 fieldValidate">
+                  {{userValidation.getError('City')}}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 form-group">
+              <label for="lname">Address</label>
+              <input type="address" class="form-control" placeholder="Enter Address" id="address"
+                     [(ngModel)]="obj.address" required formControlName="Address">
+              <div *ngIf="userValidation.hasError('Address')"
+                   class=" mt-1 fieldValidate">
+                {{userValidation.getError('Address')}}
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 form-group form-check">
+              <label class="form-check-label">Hobby</label>
+              <div class="">
+                <div class="mx-4 mt-3 d-inline-flex">
+                  <input class="form-check-input " type="checkbox" id="reading" formControlName="Hobbies"
+                         [(ngModel)]="obj.reading" name="reading">Reading
+                </div>
+                <div *ngIf="userValidation.hasError('Hobbies')"
+                     class=" mt-1 fieldValidate">
+                  {{userValidation.getError('Hobbies')}}
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 form-group">
+              <!--              <div class="form-check">-->
+              <label class="form-check-label">Gender</label>
+              <div class="mt-3 ">
+                <div class="mx-3 d-inline-flex">
+                  <input class="form-check-input" type="radio" value='Male' [checked]="obj.gender =='Male'"
+                         [(ngModel)]="obj.gender" formControlName="Gender"
+                  >Male
+                </div>
+                <div class="mx-4 d-inline-flex">
+                  <input class="form-check-input" type="radio" value='Female' [checked]="obj.gender =='Female'"
+                         [(ngModel)]="obj.gender" formControlName="Gender"
+                  >Female
+                </div>
+                <div *ngIf="userValidation.hasError('Gender')"
+                     class=" mt-1 fieldValidate">
+                  {{userValidation.getError('Gender')}}
+                </div>
+                <!--                </div>-->
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 ">
+              <div class="custom-file">
+                <input type="file" (change)="fileHandler($event)" formControlName="File">
+              </div>
+              <div *ngIf="userValidation.hasError('File')"
+                   class=" mt-1 fieldValidate">
+                {{userValidation.getError('File')}}
+              </div>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+
+              <button type="submit"
+                      class="btn btn-success">Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <div class="card mt-3" [hidden]="!showTable">
+    <div class="card-body">
+      <div class="card-block">
+        <div class="card-title" style="text-align:center"><h4>User Details List</h4></div>
+        <div class="table-responsive">
+          <table [dtOptions]="dtOptions[0]" [dtTrigger]="dtTrigger"
+                 class="table table-bordered table-striped row-border hover"
+                 datatable>
+            <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>City</th>
+              <th>Address</th>
+              <th>Hobbies</th>
+              <th>Gender</th>
+              <th>File</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let each of userList;  let i=index">
+              <td>{{each.fname}}</td>
+              <td>{{each.lname}}</td>
+              <td>{{each.city}}</td>
+              <td>{{each.address}}</td>
+              <td>{{each.reading}}</td>
+              <td>{{each.gender}}</td>
+              <td>{{each.file}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
